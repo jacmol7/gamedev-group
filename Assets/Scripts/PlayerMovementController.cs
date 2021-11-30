@@ -53,6 +53,11 @@ public class PlayerMovementController : MonoBehaviour
             yVelocity = jumpForce;
         }
 
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isOnWall = false;
+        }
+
         rb.velocity = new Vector2(xVelocity, yVelocity);
     }
 
