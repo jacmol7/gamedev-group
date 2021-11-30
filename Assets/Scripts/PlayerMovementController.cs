@@ -6,6 +6,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     public float moveSpeed;
     public float jumpForce;
+    public float slideSpeed;
     
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -56,6 +57,11 @@ public class PlayerMovementController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.LeftControl))
         {
             isOnWall = false;
+        }
+
+        if (isOnWall & yVelocity < 0 & yVelocity < -slideSpeed)
+        {
+            yVelocity = -slideSpeed;
         }
 
         rb.velocity = new Vector2(xVelocity, yVelocity);

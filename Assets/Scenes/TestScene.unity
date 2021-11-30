@@ -694,7 +694,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1592234901}
-  playerRB: {fileID: 0}
 --- !u!1 &1592234901 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2255603635891144726, guid: d8978b6b4f1c3b24fb92b0302ffb9f99, type: 3}
