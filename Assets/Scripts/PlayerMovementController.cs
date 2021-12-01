@@ -18,9 +18,12 @@ public class PlayerMovementController : MonoBehaviour
     // Reference to the last wall that we touched
     private GameObject lastWall;
 
+    private Animator animator;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -46,6 +49,7 @@ public class PlayerMovementController : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) & isGrounded)
         {
             isGrounded = false;
+            
             yVelocity += jumpForce;
         }
         else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) & isOnWall)
@@ -65,6 +69,31 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         rb.velocity = new Vector2(xVelocity, yVelocity);
+
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetBool("isOnWall", isOnWall);
+
+        if (xVelocity < 0)
+        {
+            animator.SetInteger("movementDirection", -1);
+        }
+        else if (xVelocity > 0)
+        {
+            animator.SetInteger("movementDirection", 1);
+        }
+        else
+        {
+            animator.SetInteger("movementDirection", 0);
+        }
+
+        if (isOnWall)
+        {
+            animator.SetFloat("wallDirection", lastTouchingWallDirection);
+        }
+        else
+        {
+            animator.SetFloat("wallDirection", 0f);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
