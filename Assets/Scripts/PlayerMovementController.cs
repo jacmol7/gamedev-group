@@ -43,18 +43,18 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) & isGrounded)
         {
             isGrounded = false;
             yVelocity += jumpForce;
         }
-        else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) && isOnWall)
+        else if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) & isOnWall)
         {
             isOnWall = false;
             yVelocity = jumpForce;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.LeftControl))
         {
             isOnWall = false;
         }
