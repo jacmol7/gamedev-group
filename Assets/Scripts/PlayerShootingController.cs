@@ -4,22 +4,33 @@ using UnityEngine;
 
 public class PlayerShootingController : MonoBehaviour
 {
-    Vector3 aimDirection;
+    public GameObject projectile;
+    public float projectileSpeed;
+    
+    private Vector2 aimDirection;
+    private GameObject bulletPool;
 
     void Start()
     {
-        
+        bulletPool = GameObject.Find("PlayerBullets");
+        if (!bulletPool)
+        {
+            bulletPool = new GameObject("PlayerBullets");
+        }
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(
-            new Vector2(Input.mousePosition.x, Input.mousePosition.y)
-        );
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        aimDirection = mousePos - this.transform.position;
-        aimDirection.Normalize();
+        aimDirection = (mousePos - transform.position).normalized;
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
-        Debug.DrawRay(this.transform.position, aimDirection * 3, Color.red);
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject p = Instantiate(projectile, transform.position, transform.rotation, bulletPool.transform);
+            p.transform.eulerAngles = new Vector3(0, 0, angle);
+            p.GetComponent<Rigidbody2D>().velocity = p.transform.right * projectileSpeed;
+        }
     }
 }

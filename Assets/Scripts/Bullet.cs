@@ -12,8 +12,16 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, destroyTime);
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        Destroy(gameObject);
+        if (col.tag == "Player" && transform.parent.name == "PlayerBullets")
+        {
+            return;
+        }
+
+        if (col.gameObject.tag != "Bullet")
+        {
+            Destroy(gameObject);
+        }
     }
 }
