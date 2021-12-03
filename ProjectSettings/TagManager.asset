@@ -7,6 +7,7 @@ TagManager:
   - Terrain
   - New tag
   - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
