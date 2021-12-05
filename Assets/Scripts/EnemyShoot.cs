@@ -55,13 +55,4 @@ public class EnemyShoot : MonoBehaviour
         
     }
 
-    void Attack()
-    {
-
-    }
-
-    void Flip()
-    {
-
-    }
 }
