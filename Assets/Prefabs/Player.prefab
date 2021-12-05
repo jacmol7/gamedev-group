@@ -164,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 805002700608303224, guid: e370ae4146b28f8489892dfd6c8d5603, type: 3}
   projectileSpeed: 15
+  fireRate: 0.2
 --- !u!95 &1592234902
 Animator:
   serializedVersion: 3
