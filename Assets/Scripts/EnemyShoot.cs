@@ -6,11 +6,11 @@ public class EnemyShoot : MonoBehaviour
 {
     public Transform player; 
      
-    public float speed; //speed of enemy
+    public float speed; //speed of enemy movement 
     public float distanceToPlayer;//stopping distance from player 
     public float retreatDistance; //when enemy back away from player 
 
-    private float timeBetweenShoot; 
+    private float timeBetweenShoot = 3; 
     public float startShootingTime; 
 
     public GameObject shooting;
@@ -20,7 +20,7 @@ public class EnemyShoot : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        timeBetweenShoot = startShootingTime; 
+        //timeBetweenShoot = startShootingTime; 
     }
 
     // Update is called once per frame
@@ -41,11 +41,16 @@ public class EnemyShoot : MonoBehaviour
 
         if(timeBetweenShoot <= 0)
         {
-            Instantiate(shooting, transform.position, Quaternion.identity);
-            timeBetweenShoot = startShootingTime;
-        } else 
+            Instantiate(shooting, transform.position, Quaternion.identity);//instantiate the bullets
+
+            //timeBetweenShoot = Time.deltaTime;
+            timeBetweenShoot = startShootingTime; //prevent spamming shoots
+            //Debug.Log("hi");
+
+        } 
+        else 
         {
-            timeBetweenShoot = Time.deltaTime; 
+            timeBetweenShoot -= Time.deltaTime; 
         }
         
     }

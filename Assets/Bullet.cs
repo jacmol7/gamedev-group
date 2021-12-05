@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     private Vector2 target;
 
     public GameObject explode;
-    public float removeTime = 2.0f; 
+    float removeTime = 2.0f; 
 
     //public GameObject player;
 
@@ -32,23 +32,22 @@ public class Bullet : MonoBehaviour
         //bullet is spawn and register the player position
         if(transform.position.x == target.x && transform.position.y == target.y)
         {
-            DestroyBullet();
+        OnDestroy();
         }
-
-        //var explodsion = (GameObject)  Instantiate(explode, transform.position, player.position);
-        //Destroy(explodsion, removeTime);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player"))
+        if(other.gameObject.tag == "Player")
         {
-            DestroyBullet(); 
+            OnDestroy();
         }
     }
 
-    void DestroyBullet()
+    void OnDestroy()
     {
         Destroy(gameObject);
+        Instantiate (explode, transform.position, transform.rotation);
+        Debug.Log("destroy");
     }
 }
