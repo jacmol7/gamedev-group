@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6493325086927756301}
   - component: {fileID: 7381425636019262353}
   - component: {fileID: 9005013335467565760}
+  - component: {fileID: -1719472295499033853}
   m_Layer: 0
   m_Name: SpawnEnemy
   m_TagString: Untagged
@@ -107,7 +108,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 5
 --- !u!114 &6493325086927756301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,11 +116,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6493325086927756303}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 181df4906842fc54292ec717cef01674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
+  position:
+  - {x: -5, y: 0, z: 0}
+  - {x: 5, y: 0, z: 0}
+  - {x: -5, y: 0, z: 0}
+  - {x: 5, y: 0, z: 0}
 --- !u!61 &7381425636019262353
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,7 +160,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6493325086927756303}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -162,3 +169,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-1719472295499033853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493325086927756303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c3c3abfc9106b44a6c9f14e01ed140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  groundCheck: {fileID: 0}
+  patrol: 0
+  mustFlip: 0
+  rb: {fileID: 6493325086927756298}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
