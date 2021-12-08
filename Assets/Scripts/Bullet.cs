@@ -11,10 +11,14 @@ public class Bullet : MonoBehaviour
     // after the bullet it destroyed
     private GameObject trail;
 
+    private GameObject enemy;
+
     void Start()
     {
         trail = transform.Find("BulletTrail").gameObject;
         Invoke("destroy", destroyTime);
+
+        //enemy = GameObject.Find("enemy1");
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -22,6 +26,11 @@ public class Bullet : MonoBehaviour
         if (col.tag == "Player" && transform.parent.name == "PlayerBullets")
         {
             return;
+        }
+
+        if(col.gameObject.tag == "Enemy")
+        {
+            col.gameObject.GetComponent<EnemyHealth>().reduceHealth();
         }
 
         if (col.gameObject.tag != "Bullet")
@@ -39,5 +48,13 @@ public class Bullet : MonoBehaviour
         emitter.Stop();
         
         Destroy(gameObject);
+    }
+
+    void OnCollisonEnter2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<EnemyHealth>().reduceHealth();
+        }
     }
 }

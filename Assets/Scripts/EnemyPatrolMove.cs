@@ -5,55 +5,33 @@ using UnityEngine;
 public class EnemyPatrolMove : MonoBehaviour
 {
     public float speed;
+    public float distance;
 
-    public Transform groundCheck;
+    private bool movingRight = true;
 
-    [HideInInspector]
-    public bool patrol;
-    [HideInInspector]
-    public bool mustFlip;
+    public Transform groundDetection;
 
-    public Rigidbody2D rb;
+    public LayerMask layerMask; 
 
-    public LayerMask groundLayer;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        patrol = true;
-    }
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(patrol)
+        RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance, LayerMask.GetMask("Ground"));
+        if (groundInfo.collider == false)
         {
-            Movement();
+            if (movingRight == true)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                movingRight = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                movingRight = true;
+            }
         }
-    }
-
-    private void FixedUpdate()
-    {
-        if(patrol)
-        {
-            mustFlip = !Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-        }
-    }
-
-    void Movement()
-    {
-        if(patrol)
-        {
-            TurnAround();
-        }
-        rb.velocity = new Vector2(speed * Time.deltaTime, rb.velocity.y);
-    }
-
-    void TurnAround()
-    {
-        patrol = false;
-        transform.position = new Vector2(transform.position.x * -1, transform.position.y);
-        speed *= -1; //multiply by -1, switiching the value between positive and negative
-        patrol = true;
     }
 }
+    
+

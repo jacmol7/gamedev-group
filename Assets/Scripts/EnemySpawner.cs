@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public float downForce = -2; //down force
     public float minX; //min X spawn location
     public float maxX;//max X spawn location
-    public float spawnY; //Y spawn location
+    //public float spawnY; //Y spawn location
 
     // Start is called before the first frame update
     void Start()
