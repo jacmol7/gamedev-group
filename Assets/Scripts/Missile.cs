@@ -13,6 +13,8 @@ public class Missile : MonoBehaviour
     public GameObject explode;
     float removeTime = 2.0f; 
 
+    public LayerMask layerMask; 
+     
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,8 @@ public class Missile : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         target = new Vector2(player.position.x, player.position.y);//the target will spawn at the same position as player 
+
+        //terrain = GameObject.FindGameObjectWithTag("Terrain");
 
         Destroy(gameObject, removeTime);
     }
@@ -37,21 +41,22 @@ public class Missile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player" && other.gameObject.tag == "Terrain")
+        if(other.gameObject.tag == "Player")
         {
             OnDestroy();
         }
 
-        // if(other.gameObject.tag == "Terrain")
-        // {
-        //     OnDestroy();
-        // }
+        if(other.gameObject.tag == "Terrain")
+        {
+            OnDestroy();
+            Debug.Log("???");
+        }
     }
 
     void OnDestroy()
     {
         Destroy(gameObject);
         Instantiate (explode, transform.position, transform.rotation);
-        Debug.Log("destroy");
+        //Debug.Log("destroy");
     }
 }
