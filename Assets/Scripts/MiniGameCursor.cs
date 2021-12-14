@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MiniGameCursor : MonoBehaviour
 {
+    MiniGameManager miniGameManager;
+
     void Start()
     {
-        
+        miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -19,6 +20,6 @@ public class MiniGameCursor : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Failed");
+        miniGameManager.endMiniGame(col.gameObject.tag == "Goal");
     }
 }
