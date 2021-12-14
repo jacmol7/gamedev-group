@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IMiniGameTrigger
 {
+    bool triggered;
+    MiniGameManager miniGameManager;
+
     void Start()
     {
-
+        triggered = false;
+        miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
     }
 
     void Update()
@@ -16,10 +21,16 @@ public class Door : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col) 
     {
-        if (col.gameObject.tag == "Player")
+        if (!triggered && col.gameObject.tag == "Player")
         {
-            StartCoroutine("open");
+            triggered = true;
+            miniGameManager.loadRandomGame(this);
         }
+    }
+
+    public void onMiniGameEnd(bool success)
+    {
+        Debug.Log(success);
     }
 
     private IEnumerator open()
