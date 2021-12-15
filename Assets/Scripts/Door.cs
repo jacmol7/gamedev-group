@@ -30,7 +30,14 @@ public class Door : MonoBehaviour, IMiniGameTrigger
 
     public void onMiniGameEnd(bool success)
     {
-        Debug.Log(success);
+        if (success)
+        {
+            StartCoroutine("open");
+        }
+        else
+        {
+            Debug.Log("game over");
+        }
     }
 
     private IEnumerator open()

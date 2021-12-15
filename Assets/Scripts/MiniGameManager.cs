@@ -46,6 +46,10 @@ public class MiniGameManager : MonoBehaviour
             {
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName("MiniGame"));
                 curMiniGame = SceneManager.GetSceneByName("MiniGame");
+
+                int level = Random.Range(1, 3);
+                GameObject levels = GameObject.Find("Levels");
+                levels.transform.Find("Level"+level).gameObject.SetActive(true);
             };
         }
         else
@@ -77,5 +81,8 @@ public class MiniGameManager : MonoBehaviour
 
             initiator.onMiniGameEnd(success);
         };
+
+        sceneLoad = SceneManager.LoadSceneAsync("MiniGame", LoadSceneMode.Additive);
+        sceneLoad.allowSceneActivation = false;
     }
 }
