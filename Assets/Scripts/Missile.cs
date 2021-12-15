@@ -35,7 +35,7 @@ public class Missile : MonoBehaviour
         //bullet is spawn and register the player position
         if(transform.position.x == target.x && transform.position.y == target.y)
         {
-        OnDestroy();
+            OnDestroy();
         }
     }
 
@@ -44,6 +44,7 @@ public class Missile : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             OnDestroy();
+            other.GetComponent<PlayerHealth>().TakeDamage();
         }
 
         if(other.gameObject.tag == "Terrain")
