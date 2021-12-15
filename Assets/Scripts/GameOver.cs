@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    public static bool GameIsOver = false;
+    public bool GameIsOver = false;
 
     public GameObject GameOverMenu;
 
@@ -13,13 +14,13 @@ public class GameOver : MonoBehaviour
     public void GameEnded()
     {
         if(GameIsOver)
-        {
-            Restart();
-        }
-        else
-        {
-            MainMenu();
-        }
+        {   
+            //Restart();
+            PauseGame();
+            Debug.Log("Game Ended");
+        } 
+        
+        
         // if(GameIsOver == false)
         // {
         //     // GameIsOver = true;
@@ -28,27 +29,25 @@ public class GameOver : MonoBehaviour
         // }
     }
 
-    void Restart()
+    public void PauseGame()
     {
-        GameOverMenu.SetActive(false);
-        Time.timeScale = 1.0f;
+        GameOverMenu.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsOver = true;
+        //Restart();
+    }
+
+    public void Restart()
+    {
+        //GameOverMenu.SetActive(true);
+        Time.timeScale = 0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    void MainMenu()
+    public void MainMenu()
     {
-        GameOverMenu.SetActive(true);
+       
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
-    
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

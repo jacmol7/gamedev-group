@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         health --;
         if(health <= 0)
         {
-            FindObjectOfType<GameOver>().GameEnded();
+            FindObjectOfType<GameOver>().PauseGame();
         }
     }
 }

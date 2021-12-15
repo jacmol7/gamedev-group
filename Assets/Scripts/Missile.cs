@@ -46,13 +46,18 @@ public class Missile : MonoBehaviour
             OnDestroy();
             other.GetComponent<PlayerHealth>().TakeDamage();
         }
-
         if(other.gameObject.tag == "Terrain")
         {
             OnDestroy();
             Debug.Log("???");
         }
+        
     }
+
+    // void OnCollisionEnter2D(Collision2D collision)
+    // {
+        
+    // }
 
     void OnDestroy()
     {
