@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Terrain
+  - New tag
+  - Enemy
   - Bullet
   - Goal
   layers:
@@ -14,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 
