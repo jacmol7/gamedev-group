@@ -13,19 +13,19 @@ public class EnemyPatrolMove : MonoBehaviour
 
     public LayerMask layerMask; //a layer mask for the wall detection 
 
-    private void Update()
+    void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime); //set the direction to the right, making the speed as a real time 
 
         RaycastHit2D ray = Physics2D.Raycast(groundDetect.position, Vector2.down, distance, LayerMask.GetMask("Ground")); //vector2 check whther if the enemy is dectected the ground 
-        if (ray.collider == false)
+        if (ray.collider == false) //statement if raycast isn;t collide with anything  
         {
-            if (movingRight == false)
+            if (movingRight == false)//if enemy
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 movingRight = true;
             }
-            else
+            else //if the enenmy is moving to the right 
             {
                 transform.eulerAngles = new Vector3(0, -180, 0);
                 movingRight = false;
