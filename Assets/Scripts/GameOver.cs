@@ -6,28 +6,28 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    public bool GameIsOver = false;
+    public static bool GameIsOver = false;
 
     public GameObject GameOverMenu;
 
     // Start is called before the first frame update
-    public void GameEnded()
-    {
-        if(GameIsOver)
-        {   
-            //Restart();
-            PauseGame();
-            Debug.Log("Game Ended");
-        } 
+    // public void GameEnded()
+    // {
+    //     if(GameIsOver)
+    //     {   
+    //         //Restart();
+    //         PauseGame();
+    //         Debug.Log("Game Ended");
+    //     } 
         
         
-        // if(GameIsOver == false)
-        // {
-        //     // GameIsOver = true;
-        //     // Debug.Log("Game Over !!!");
-        //     Restart();
-        // }
-    }
+    //     // if(GameIsOver == false)
+    //     // {
+    //     //     // GameIsOver = true;
+    //     //     // Debug.Log("Game Over !!!");
+    //     //     Restart();
+    //     // }
+    // }
 
     public void PauseGame()
     {

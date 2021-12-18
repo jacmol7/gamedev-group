@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyShoot : MonoBehaviour
 {
-    public Transform player; 
+    public Transform player; //a variable for the missle to follow the player 
      
     public float speed; //speed of enemy movement 
     public float distanceToPlayer;//stopping distance from player 
-    public float retreatDistance; //when enemy back away from player 
+    public float retreatDistance; //the distance that enemy back away from player 
 
-    private float timeBetweenShoot = 3; 
+    private float timeBetweenShoot = 3; //the shooting time between missle launches 
     public float startShootingTime; 
 
     public GameObject shooting;
@@ -18,49 +18,38 @@ public class EnemyShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        //timeBetweenShoot = startShootingTime; 
+        player = GameObject.FindGameObjectWithTag("Player").transform; //find the Player object 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(transform.position, player.position) > distanceToPlayer)
+        if (Vector2.Distance(transform.position, player.position) > distanceToPlayer)//check how far the enemy is from the player
         {//enemy moves closer to target when it's too far away 
-            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);   
+            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);  //moving toward the player 
         } 
-        else if (Vector2.Distance(transform.position, player.position) < distanceToPlayer && Vector2.Distance(transform.position, player.position) > retreatDistance)
-        {//stop moving if it's too close
-            transform.position = this.transform.position;
-        }
-        else if(Vector2.Distance(transform.position, player.position) < retreatDistance)
+        else if (Vector2.Distance(transform.position, player.position) < distanceToPlayer && Vector2.Distance(transform.position, player.position) > retreatDistance)//check if enemy is too close to the player, when the player distance to enemy is smaller than distance to the player and greater than the retreat distance  
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, -speed * Time.deltaTime);
+            transform.position = this.transform.position;//enemy stop moving to the player 
         }
 
         if(timeBetweenShoot <= 0)
         {
             Instantiate(shooting, transform.position, Quaternion.identity);//instantiate the bullets
-
-            //timeBetweenShoot = Time.deltaTime;
             timeBetweenShoot = startShootingTime; //prevent spamming shoots
-            //Debug.Log("hi");
-
         } 
         else 
         {
-            timeBetweenShoot -= Time.deltaTime; 
+            timeBetweenShoot -= Time.deltaTime; //the enemy shoot slower over time 
         }
         
     }
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)//collision to the player 
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player")//find the game object with tag with player 
         {
-            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage();
-            //Destroy(gameObject);
-            Debug.Log("Destroy Enemy1, Reduce player's health");
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(); //call the method from class player health to take damage
+            //Debug.Log("Destroy Enemy1, Reduce player's health");
         }
 
     }
