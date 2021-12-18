@@ -619,7 +619,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  enemy: {fileID: 454399189}
 --- !u!212 &454399195
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2377,7 +2376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acc030b5bf605240859e9bd1718d23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnEnemy: {fileID: 169450662666652684, guid: d7e350729e018494ea48098d5931fd60, type: 3}
+  spawnEnemy: {fileID: 3748280130560237967, guid: d7e350729e018494ea48098d5931fd60, type: 3}
   spawnTime: 1
   downForce: -2
   minX: 0
@@ -3128,7 +3127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  enemy: {fileID: 1596433763}
 --- !u!1001 &2255603634939668258
 PrefabInstance:
   m_ObjectHideFlags: 0
