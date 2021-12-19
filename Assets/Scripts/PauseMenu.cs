@@ -5,16 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GamePaused = false;
+    public static bool GamePaused = false; //setting the game pause to false 
 
-    public GameObject pauseMenu;
-
+    public GameObject pauseMenu; //pause menu game object 
+    private GameOver gameOverScript; //getting a GameOver varible 
+    public GameObject gameOver; //game over sene game object 
     // Update is called once per frame
+
+    void Start()
+    {
+        gameOverScript = gameOver.GetComponent<GameOver>(); //getting the bool from game over script 
+    }
+
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !gameOverScript.GameIsOver) //apply functon when click on esc and game over is false 
         {
-            if(GamePaused)
+            if(GamePaused) //when game is paused 
             {
                 Resume();
             }
@@ -23,25 +31,26 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+        
+        
     }
 
-    public void Resume()
+    public void Resume() //resume the game 
     {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1.0f;
-        GamePaused = false;
+        pauseMenu.SetActive(false); //hide the pause menu when game is resumed 
+        Time.timeScale = 1.0f; //set the game to normal time scale 
+        GamePaused = false; //make the game knows it's not pausing 
     }
 
-    void Pause()
+    void Pause() //pause the game 
     {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0.0f;
-        GamePaused = true;
+        pauseMenu.SetActive(true); //show the pasue menu when game is paused 
+        Time.timeScale = 0.0f; //stop the game from running 
+        GamePaused = true; //make the game knows it's pausing 
     }
 
-    public void LoadMenu()
+    public void LoadMenu() //button function for main menu 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        Debug.Log("Back to menu");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); //load the main menu
     }
 }
