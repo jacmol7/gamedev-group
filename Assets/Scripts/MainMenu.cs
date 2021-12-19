@@ -5,14 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void Play()
+    public void Play() //button function to play the game 
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Menu"); //load the game 
+        Time.timeScale = 1.0f;
     }
 
-    public void QuitGame()
+    public void QuitGame() //quite game button 
     {
-        Application.Quit();
-        Debug.Log("Quit Game!");
+        Application.Quit(); //quit the application 
+        Debug.Log("Quit Game!"); //just to show the function is work with unity 
     }
 }

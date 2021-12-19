@@ -17,8 +17,6 @@ public class Bullet : MonoBehaviour
     {
         trail = transform.Find("BulletTrail").gameObject;
         Invoke("destroy", destroyTime);
-
-        //enemy = GameObject.Find("enemy1");
     }
 
     void OnTriggerEnter2D(Collider2D col)

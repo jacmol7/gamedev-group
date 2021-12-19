@@ -9,7 +9,6 @@ public class EnemySpawner : MonoBehaviour
     public float downForce = -2; //down force
     public float minX; //min X spawn location
     public float maxX;//max X spawn location
-    //public float spawnY; //Y spawn location
 
     // Start is called before the first frame update
     void Start()
@@ -19,17 +18,13 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator Spawn()
     {
-        yield return new WaitForSeconds(spawnTime); 
-
-        GameObject prefab = spawnEnemy; 
-
-        GameObject go = Instantiate(prefab,new Vector3(Random.Range(minX,maxX+1),transform.position.y,0f),Quaternion.Euler(0,0,Random.Range(-90F,90F))) as GameObject;
-
+        yield return new WaitForSeconds(spawnTime); //wait for the spawn time, 1 second 
+        GameObject prefab = spawnEnemy; //spawn prefab is the patrolling enemy 
+        GameObject go = Instantiate(prefab,new Vector3(Random.Range(minX,maxX+1),transform.position.y,0f),Quaternion.Euler(0,0,45)) as GameObject;//spawn prefab at a random position
         if (go.transform.position.x > 3)
         {
             go.GetComponent<Rigidbody2D>().AddForce(new Vector2(downForce, transform.position.y));
         }
-
     }
 
     // Update is called once per frame

@@ -6,19 +6,22 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    public bool GameIsOver = false;
+    public bool GameIsOver = false; 
 
-    public GameObject GameOverMenu;
+    public GameObject GameOverMenu; //Game over menu object 
+    
+
+
 
     // Start is called before the first frame update
-    // public void GameEnded()
+    // void Update()
     // {
     //     if(GameIsOver)
     //     {   
-    //         //Restart();
     //         PauseGame();
     //         Debug.Log("Game Ended");
     //     } 
+        
         
         
     //     // if(GameIsOver == false)
@@ -29,24 +32,22 @@ public class GameOver : MonoBehaviour
     //     // }
     // }
 
-    public void PauseGame()
+    public void PauseGame() //pause game menu when game is over 
     {
-        GameOverMenu.SetActive(true);
-        Time.timeScale = 0f;
+        GameOverMenu.SetActive(true); //show up the game over scene when game is over 
+        Time.timeScale = 0f; //stop the game running when game is over 
         GameIsOver = true;
-        //Restart();
     }
 
-    public void Restart()
+    public void Restart() //button function to restart the game 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); //reload the game 
+        Time.timeScale = 1f; //setting the game back to normal time 
     }
 
-    public void MainMenu()
+    public void MainMenu() //button function to go to main menu 
     {
-       
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); //load the menu scene 
     }
 
 }
