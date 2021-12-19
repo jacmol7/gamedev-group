@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void Play() //button function to play the game 
     {
-        SceneManager.LoadScene("Menu"); //load the game 
+        SceneManager.LoadScene("Level1"); //load the game 
         Time.timeScale = 1.0f;
     }
 

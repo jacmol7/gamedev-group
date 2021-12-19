@@ -51,6 +51,6 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu() //button function for main menu 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); //load the main menu
+        SceneManager.LoadScene("Menu"); //load the main menu
     }
 }
