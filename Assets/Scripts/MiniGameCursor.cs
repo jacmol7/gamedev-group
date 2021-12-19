@@ -32,4 +32,9 @@ public class MiniGameCursor : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
     }
+
+    void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
 }
