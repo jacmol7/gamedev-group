@@ -3162,7 +3162,7 @@ MonoBehaviour:
   - {fileID: 862195376}
   fullHeart: {fileID: 21300000, guid: cac1584c58c80db4a9e9813751d7fd0c, type: 3}
   emptyHeart: {fileID: 21300000, guid: f1b00822cdea4e443a3e2489ddaae788, type: 3}
-  gameOver: {fileID: 927962389}
+  gameOverScene: {fileID: 927962389}
 --- !u!1 &1592344478
 GameObject:
   m_ObjectHideFlags: 0

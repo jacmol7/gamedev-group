@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public Image[] hearts; //an array for the hearts 
     public Sprite fullHeart; //image of the full hearts 
     public Sprite emptyHeart; //image of the empty hearts 
-
+    public GameObject gameOverScene;
     
 
     // Start is called before the first frame update
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         health --; //minus one health when take damage 
         if(health <= 0) //when health is zero 
         {
-            FindObjectOfType<GameOver>().PauseGame(); //call the game over scene 
+            gameOverScene.GetComponent<GameOver>().PauseGame(); //call the game over scene 
         }
     }
 }
