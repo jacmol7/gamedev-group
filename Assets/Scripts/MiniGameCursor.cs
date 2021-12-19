@@ -6,11 +6,6 @@ public class MiniGameCursor : MonoBehaviour
 {
     MiniGameManager miniGameManager;
 
-    void Awake()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
     void Start()
     {
         miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
@@ -36,5 +31,12 @@ public class MiniGameCursor : MonoBehaviour
     void OnDisable()
     {
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    void OnEnable()
+    {
+        // Hide the mouse cursor so the player doesn't see it not matching up with the
+        // in game cursor
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
