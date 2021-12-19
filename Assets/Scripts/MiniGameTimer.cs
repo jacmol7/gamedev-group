@@ -11,17 +11,19 @@ public class MiniGameTimer : MonoBehaviour
     private MiniGameManager miniGameManager;
     private float timeRemaining;
 
-    void Awake()
+    void Start()
     {
+        miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
+    }
+
+    void OnEnable()
+    {
+        // Start the timer as soon as this is enabled as this will be enabled
+        // only as the mini game is started
         timeRemaining = timerLength;
         timerSlider.maxValue = timerLength;
         timerSlider.value = timerLength;
         StartCoroutine("Timer");
-    }
-
-    void Start()
-    {
-        miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
     }
 
     private IEnumerator Timer()

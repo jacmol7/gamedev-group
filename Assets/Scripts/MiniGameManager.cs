@@ -5,21 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class MiniGameManager : MonoBehaviour
 {
-    AsyncOperation sceneLoad;
+    public Vector2 startPos;
+
     Scene returnScene;
     Scene curMiniGame;
     List<GameObject> objectsToReenable;
     IMiniGameTrigger initiator;
     bool inGame;
 
+    private static MiniGameManager _instance;
+
+    void Awake()
+    {
+        SceneManager.LoadScene("MiniGame", LoadSceneMode.Additive);
+        // if (_instance != null && _instance != this)
+        // {
+        //     Destroy(this.gameObject);
+        // }
+        // else
+        // {
+        //     _instance = this;
+        // }
+    }
+
     void Start()
     {
         DontDestroyOnLoad(gameObject);
 
         inGame = false;
-
-        sceneLoad = SceneManager.LoadSceneAsync("MiniGame", LoadSceneMode.Additive);
-        sceneLoad.allowSceneActivation = false;
     }
 
     public void loadRandomGame(IMiniGameTrigger trigger)
@@ -41,16 +54,28 @@ public class MiniGameManager : MonoBehaviour
                 }
             }
 
-            sceneLoad.allowSceneActivation = true;
-            sceneLoad.completed += (asyncOperation) =>
-            {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName("MiniGame"));
-                curMiniGame = SceneManager.GetSceneByName("MiniGame");
 
-                int level = Random.Range(1, 3);
-                GameObject levels = GameObject.Find("Levels");
-                levels.transform.Find("Level"+level).gameObject.SetActive(true);
-            };
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("MiniGame"));
+            curMiniGame = SceneManager.GetSceneByName("MiniGame");
+
+            // Activate the objects needed for every mini game.
+            // E.g the cursor and hud
+            GameObject components = GameObject.Find("MiniGameComponents");
+            for (int i = 0; i < components.transform.childCount; i++)
+            {
+                GameObject component = components.transform.GetChild(i).gameObject;
+                component.SetActive(true);
+                // Set the mouse cursor to its starting position;
+                if (component.name == "MouseCursor")
+                {
+                    component.transform.position = new Vector3(startPos.x, startPos.y, component.transform.position.z);
+                }
+            }
+
+            // Select a random minigame level
+            int level = Random.Range(1, 3);
+            GameObject levels = GameObject.Find("Levels");
+            levels.transform.Find("Level"+level).gameObject.SetActive(true);
         }
         else
         {
@@ -66,23 +91,27 @@ public class MiniGameManager : MonoBehaviour
             return;
         }
 
-        AsyncOperation unloadMiniGame = SceneManager.UnloadSceneAsync(curMiniGame);
-        unloadMiniGame.completed += (asyncOperation) =>
+        for (int i = 0; i < objectsToReenable.Count; i++)
         {
-            for (int i = 0; i < objectsToReenable.Count; i++)
-            {
-                objectsToReenable[i].SetActive(true);
-            }
+            objectsToReenable[i].SetActive(true);
+        }
 
-            objectsToReenable.Clear();
-            inGame = false;
+        objectsToReenable.Clear();
+        inGame = false;
 
-            SceneManager.SetActiveScene(returnScene);
+        GameObject components = GameObject.Find("MiniGameComponents");
+        for (int i = 0; i < components.transform.childCount; i++)
+        {
+            components.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        GameObject levels = GameObject.Find("Levels");
+        for (int i = 0; i < levels.transform.childCount; i ++)
+        {
+            levels.transform.GetChild(i).gameObject.SetActive(false);
+        }
 
-            initiator.onMiniGameEnd(success);
-        };
+        SceneManager.SetActiveScene(returnScene);
 
-        sceneLoad = SceneManager.LoadSceneAsync("MiniGame", LoadSceneMode.Additive);
-        sceneLoad.allowSceneActivation = false;
+        initiator.onMiniGameEnd(success);
     }
 }
