@@ -18,14 +18,14 @@ public class MiniGameManager : MonoBehaviour
     void Awake()
     {
         SceneManager.LoadScene("MiniGame", LoadSceneMode.Additive);
-        // if (_instance != null && _instance != this)
-        // {
-        //     Destroy(this.gameObject);
-        // }
-        // else
-        // {
-        //     _instance = this;
-        // }
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
     }
 
     void Start()
