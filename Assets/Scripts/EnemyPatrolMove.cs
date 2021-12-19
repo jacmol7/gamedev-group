@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyPatrolMove : MonoBehaviour
 {
     public float speed; //the speed of the enemy 
-    public float distance;
 
     private bool movingRight = true; //bool that set moving right to true 
 
@@ -17,8 +16,12 @@ public class EnemyPatrolMove : MonoBehaviour
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime); //set the direction to the right, making the speed as a real time 
 
-        RaycastHit2D ray = Physics2D.Raycast(groundDetect.position, Vector2.down, distance, LayerMask.GetMask("Ground")); //vector2 check whther if the enemy is dectected the ground, layer mask for the enemy to detect the ground mask layer 
-        if (ray.collider == false) //statement if raycast isn;t collide with anything  
+        // Check if we are about to fall of a cliff by casting a ray downwards just infront of us and ensuring it 
+        // touches the ground
+        RaycastHit2D downRay = Physics2D.Raycast(groundDetect.position, Vector2.down, 0.5f, LayerMask.GetMask("Ground"));
+        // Check if we are about to run into a wall by casting a ray slightly infront
+        RaycastHit2D fowardRay = Physics2D.Raycast(groundDetect.position, Vector2.up, 0.5f, LayerMask.GetMask("Ground"));
+        if (!downRay.collider || fowardRay) //statement if raycast isn;t collide with anything  
         {
             if (movingRight == false)//if enemy the enemy is moving to the left 
             {
