@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour, IMiniGameTrigger
 {
+    public GameObject gameOverScreen;
+
     bool triggered;
     MiniGameManager miniGameManager;
 
@@ -12,11 +14,6 @@ public class Door : MonoBehaviour, IMiniGameTrigger
     {
         triggered = false;
         miniGameManager = GameObject.Find("MiniGameManager").GetComponent<MiniGameManager>();
-    }
-
-    void Update()
-    {
-        
     }
 
     void OnCollisionEnter2D(Collision2D col) 
@@ -36,7 +33,7 @@ public class Door : MonoBehaviour, IMiniGameTrigger
         }
         else
         {
-            Debug.Log("game over");
+            gameOverScreen.GetComponent<GameOver>().PauseGame();
         }
     }
 
