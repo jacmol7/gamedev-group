@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    public static bool GameIsOver = false;
+    public bool GameIsOver = false;
 
     public GameObject GameOverMenu;
 

@@ -996,6 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73c2151b1398ce4388cd9faad10a626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameIsOver: 0
   GameOverMenu: {fileID: 0}
 --- !u!1 &862195374
 GameObject:
@@ -1504,6 +1505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73c2151b1398ce4388cd9faad10a626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameIsOver: 0
   GameOverMenu: {fileID: 1592344478}
 --- !u!1 &932314920
 GameObject:
@@ -2884,6 +2886,7 @@ MonoBehaviour:
   - {fileID: 862195376}
   fullHeart: {fileID: 21300000, guid: cac1584c58c80db4a9e9813751d7fd0c, type: 3}
   emptyHeart: {fileID: 21300000, guid: f1b00822cdea4e443a3e2489ddaae788, type: 3}
+  gameOver: {fileID: 927962389}
 --- !u!1 &1592344478
 GameObject:
   m_ObjectHideFlags: 0
