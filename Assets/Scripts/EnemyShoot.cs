@@ -11,9 +11,11 @@ public class EnemyShoot : MonoBehaviour
     public float retreatDistance; //the distance that enemy back away from player 
 
     private float timeBetweenShoot = 3; //the shooting time between missle launches 
-    public float startShootingTime; 
+    public float startShootingTime; //prevent to shoot instantly when it comes up 
 
-    public GameObject shooting;
+    public GameObject shooting; //the missile game object 
+
+    public AudioClip shootSound; //sound effect of shooting 
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +37,7 @@ public class EnemyShoot : MonoBehaviour
 
         if(timeBetweenShoot <= 0)
         {
+            AudioSource.PlayClipAtPoint(shootSound, transform.position); //play the audio clip when the enemy shoot 
             Instantiate(shooting, transform.position, Quaternion.identity);//instantiate the bullets
             timeBetweenShoot = startShootingTime; //prevent spamming shoots
         } 

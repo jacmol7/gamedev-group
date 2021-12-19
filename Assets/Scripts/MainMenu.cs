@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     public void Play() //button function to play the game 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //load the game 
+        Time.timeScale = 1.0f;
     }
 
     public void QuitGame() //quite game button 

@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(spawnTime); //wait for the spawn time, 1 second 
         GameObject prefab = spawnEnemy; //spawn prefab is the patrolling enemy 
-        GameObject go = Instantiate(prefab,new Vector3(Random.Range(minX,maxX+1),transform.position.y,0f),Quaternion.Euler(0,0,Random.Range(-90F,90F))) as GameObject;//spawn prefab at a random position 
+        GameObject go = Instantiate(prefab,new Vector3(Random.Range(minX,maxX+1),transform.position.y,0f),Quaternion.Euler(0,0,45)) as GameObject;//spawn prefab at a random position
         if (go.transform.position.x > 3)
         {
             go.GetComponent<Rigidbody2D>().AddForce(new Vector2(downForce, transform.position.y));

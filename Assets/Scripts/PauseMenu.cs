@@ -8,11 +8,19 @@ public class PauseMenu : MonoBehaviour
     public static bool GamePaused = false; //setting the game pause to false 
 
     public GameObject pauseMenu; //pause menu game object 
-
+    private GameOver gameOverScript; //getting a GameOver varible 
+    public GameObject gameOver; //game over sene game object 
     // Update is called once per frame
+
+    void Start()
+    {
+        gameOverScript = gameOver.GetComponent<GameOver>(); //getting the bool from game over script 
+    }
+
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)) //apply functon when click on esc 
+        if(Input.GetKeyDown(KeyCode.Escape) && !gameOverScript.GameIsOver) //apply functon when click on esc and game over is false 
         {
             if(GamePaused) //when game is paused 
             {
@@ -23,6 +31,8 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+        
+        
     }
 
     public void Resume() //resume the game 
