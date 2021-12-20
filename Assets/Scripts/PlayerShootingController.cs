@@ -7,6 +7,8 @@ public class PlayerShootingController : MonoBehaviour
     public GameObject projectile;
     public float projectileSpeed;
     public float fireRate;
+
+    public AudioClip shootSound;
     
     private Vector2 aimDirection;
     private GameObject bulletPool;
@@ -25,6 +27,12 @@ public class PlayerShootingController : MonoBehaviour
 
     void Update()
     {
+        // Disable shooting if the game is paused for any reason;
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             StartCoroutine("shoot");
@@ -45,6 +53,8 @@ public class PlayerShootingController : MonoBehaviour
             GameObject p = Instantiate(projectile, transform.position, transform.rotation, bulletPool.transform);
             p.transform.eulerAngles = new Vector3(0, 0, angle);
             p.GetComponent<Rigidbody2D>().velocity = p.transform.right * projectileSpeed;
+
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
             
             yield return new WaitForSeconds(fireRate);
             canShoot = true;
