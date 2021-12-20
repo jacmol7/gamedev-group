@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5268306815815137035}
   - component: {fileID: 1592234908}
   - component: {fileID: 1592234902}
+  - component: {fileID: 472614522}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -184,3 +185,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &472614522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255603635891144726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22065d8a7067cbc46ab9c85f7953c7d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  numOfHearts: 3
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullHeart: {fileID: 21300000, guid: cac1584c58c80db4a9e9813751d7fd0c, type: 3}
+  emptyHeart: {fileID: 21300000, guid: f1b00822cdea4e443a3e2489ddaae788, type: 3}
+  gameOverScene: {fileID: 0}
