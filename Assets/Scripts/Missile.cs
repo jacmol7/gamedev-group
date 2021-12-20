@@ -22,6 +22,11 @@ public class Missile : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);//bullet is spawn, register the player position and move toward the player position 
+
+        // Rotate to face player
+        Vector2 dirToPlayer = (transform.position - player.position);
+        float angleToPlayer = Mathf.Atan2(dirToPlayer.y, dirToPlayer.x) * Mathf.Rad2Deg;
+        transform.eulerAngles = new Vector3(0, 0, angleToPlayer);
         
         if(transform.position.x == target.x && transform.position.y == target.y) //check if the missiles hit the target
         {
