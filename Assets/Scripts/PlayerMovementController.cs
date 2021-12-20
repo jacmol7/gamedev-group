@@ -7,8 +7,11 @@ public class PlayerMovementController : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
     public float slideSpeed;
+
+    public AudioClip footStepSound;
+    public AudioClip landSound;
+    public AudioClip slideSound;
     
-    private Rigidbody2D rb;
     private bool isGrounded;
     private bool isOnWall;
     // The angle of the last wall we touched.
@@ -18,12 +21,21 @@ public class PlayerMovementController : MonoBehaviour
     // Reference to the last wall that we touched
     private GameObject lastWall;
 
+    // Cache references to the players components
+    private Rigidbody2D rb;
     private Animator animator;
+    private AudioSource audioSource;
 
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        animator = gameObject.GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+
+    void OnEnable()
+    {
+        audioSource = GetComponent<AudioSource>();
+        StartCoroutine("movementSounds");
     }
 
     void Update()
@@ -96,6 +108,37 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
+    // Movement sounds that need to keep repeating are handled here.
+    // This is so we can sleep for the right ammount of time to avoid overlapping sounds
+    // or cutting of one sound to quickly
+    private IEnumerator movementSounds()
+    {
+        while (true)
+        {
+            if (isGrounded && rb.velocity.x != 0f)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = footStepSound;
+                    audioSource.Play();
+                    yield return new WaitForSeconds(0.5f);
+                }
+            }
+
+            while (isOnWall)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = slideSound;
+                    audioSource.Play();
+                    yield return new WaitForSeconds(slideSound.length);
+                    yield return null;
+                }
+            }
+            yield return null;
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Terrain")
@@ -107,6 +150,11 @@ public class PlayerMovementController : MonoBehaviour
                 // Touched the top of a piece of terrain
                 if (points[i].normal.y == 1f)
                 {
+                    if (!isGrounded)
+                    {
+                        audioSource.clip = landSound;
+                        audioSource.Play();
+                    }
                     isGrounded = true;
                     isOnWall = false;
                     lastTouchingWallDirection = 0f;
@@ -134,6 +182,15 @@ public class PlayerMovementController : MonoBehaviour
         if (col.gameObject == lastWall)
         {
             isOnWall = false;
+
+            
+            if (audioSource.clip && audioSource.isPlaying)
+            {
+                if (audioSource.clip.name == slideSound.name && !isOnWall)
+                {
+                    audioSource.Stop();
+                }
+            }
         }
     }
 }

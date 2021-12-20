@@ -8,6 +8,7 @@ public class Missile : MonoBehaviour
     private Transform player; //transform variable for the player 
     private Vector2 target; //vector2 variable for target 
     public GameObject explode; //explode game object 
+    public AudioClip explosionSound;
     float removeTime = 2.0f; 
      
     // Start is called before the first frame update
@@ -49,7 +50,8 @@ public class Missile : MonoBehaviour
 
     void OnDestroy()
     {
-        Destroy(gameObject); //destroy the missile game object 
+        Destroy(gameObject); //destroy the missile game object
+        AudioSource.PlayClipAtPoint(explosionSound, transform.position);
         Instantiate (explode, transform.position, transform.rotation); //adding the explosion effect when explode 
     }
 }

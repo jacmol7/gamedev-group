@@ -100,9 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   explode: {fileID: 4470508491591524736, guid: 67bb50827752db141bd7f8db35cb3337, type: 3}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  explosionSound: {fileID: 8300000, guid: 7a9975aeeddcfcc4997773da07a6cba5, type: 3}
 --- !u!61 &5269631671991092698
 BoxCollider2D:
   m_ObjectHideFlags: 0
