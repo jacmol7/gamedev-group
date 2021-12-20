@@ -8,32 +8,33 @@ public class EnemyPatrolMove : MonoBehaviour
 
     private bool movingRight = true; //bool that set moving right to true 
 
-    public Transform groundDetect;  //for the enemy to detect whether there is a ground 
+    private GroundDetector groundDetector;
 
-    public LayerMask layerMask; //a layer mask for the wall detection 
+    void Start()
+    {
+        Physics2D.IgnoreLayerCollision(7, 7, true);
+        groundDetector = transform.Find("GroundDetector").GetComponent<GroundDetector>();
+    }
 
     void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime); //set the direction to the right, making the speed as a real time 
 
-        // Check if we are about to fall of a cliff by casting a ray downwards just infront of us and ensuring it 
-        // touches the ground
-        RaycastHit2D downRay = Physics2D.Raycast(groundDetect.position, Vector2.down, 0.5f, LayerMask.GetMask("Ground"));
-        // Check if we are about to run into a wall by casting a ray slightly infront
-        RaycastHit2D fowardRay = Physics2D.Raycast(groundDetect.position, Vector2.up, 0.5f, LayerMask.GetMask("Ground"));
-        if (!downRay.collider || fowardRay) //statement if raycast isn;t collide with anything  
+        // Turn around if we are either about to fall of a cliff or run into a wall.
+        // The rotation must be done in this way to ensure the child used for ground detection
+        // is always facing in the correct direction
+        if (groundDetector.isStuck())
         {
-            if (movingRight == false)//if enemy the enemy is moving to the left 
+            if (movingRight)
             {
-                transform.eulerAngles = new Vector3(0, 0, 0); //reset the y value to 0 
-                movingRight = true; //enemy move to right if it hits the edge or wall 
+                transform.eulerAngles = new Vector3(0, -180, 0);
             }
-            else //if the enenmy is moving to the right 
+            else
             {
-                transform.eulerAngles = new Vector3(0, -180, 0); //rotate the enemy 180 degree on y-axis 
-                movingRight = false; //enemy move to left if it hits the edge or wall 
-                
+                transform.eulerAngles = new Vector3(0, 0, 0);
             }
+
+            movingRight = !movingRight;
         }
     }
 }

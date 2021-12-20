@@ -18,6 +18,8 @@ public class MiniGameManager : MonoBehaviour
     void Awake()
     {
         SceneManager.LoadScene("MiniGame", LoadSceneMode.Additive);
+        // MiniGameManager is a singleton so give up on attempting to make a new one
+        // if one already exists
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -30,11 +32,16 @@ public class MiniGameManager : MonoBehaviour
 
     void Start()
     {
+        // The minigame manager should stay forever so it can retain its state
+        // when switching between mingames and the main game
         DontDestroyOnLoad(gameObject);
 
         inGame = false;
     }
 
+    // Load any of the random minigame levels.
+    // The trigger should be whatever object in the main game level started the minigame I.E a door.
+    // The trigger will have its onMiniGameEnd method ran when the game ends
     public void loadRandomGame(IMiniGameTrigger trigger)
     {
         if (!inGame)
@@ -83,6 +90,7 @@ public class MiniGameManager : MonoBehaviour
         }
     }
 
+    // Call when the minigame is over for any reason
     public void endMiniGame(bool success)
     {
         if (!inGame)
@@ -91,14 +99,9 @@ public class MiniGameManager : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < objectsToReenable.Count; i++)
-        {
-            objectsToReenable[i].SetActive(true);
-        }
-
-        objectsToReenable.Clear();
         inGame = false;
 
+        // Disable/hide everything relating to the minigame
         GameObject components = GameObject.Find("MiniGameComponents");
         for (int i = 0; i < components.transform.childCount; i++)
         {
@@ -110,7 +113,21 @@ public class MiniGameManager : MonoBehaviour
             levels.transform.GetChild(i).gameObject.SetActive(false);
         }
 
+        // Reenable/show everything from the main game scene
         SceneManager.SetActiveScene(returnScene);
+
+        for (int i = 0; i < objectsToReenable.Count; i++)
+        {
+            // We need to check if the object still exists because objects like
+            // missiles or smoke trails may have dissapeared right as the minigame
+            // was being started
+            if (objectsToReenable[i])
+            {
+                objectsToReenable[i].SetActive(true);
+            }
+        }
+
+        objectsToReenable.Clear();
 
         initiator.onMiniGameEnd(success);
     }

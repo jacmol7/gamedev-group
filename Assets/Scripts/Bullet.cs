@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     {
         trail = transform.Find("BulletTrail").gameObject;
         Invoke("destroy", destroyTime);
+        Physics2D.IgnoreLayerCollision(8, 8, true);
     }
 
     void OnTriggerEnter2D(Collider2D col)
