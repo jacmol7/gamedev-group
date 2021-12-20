@@ -11,18 +11,32 @@ public class PlayerHealth : MonoBehaviour
     public Image[] hearts; //an array for the hearts 
     public Sprite fullHeart; //image of the full hearts 
     public Sprite emptyHeart; //image of the empty hearts 
+    
     public GameObject gameOverScene;
+    private GameOver gameOverScript;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameOverScript = gameOverScene.GetComponent<GameOver>();
+    }
+
+    void Awake()
+    {
+        // The player has been created or became alive again.
+        // Ensure the game is running
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameOverScript.GameIsOver)
+        {
+            return;
+        }
+
         if(health > numOfHearts) //check when health is greater than number of hearts 
         {
             health = numOfHearts; //setting health to num of hearts variable 
@@ -48,6 +62,12 @@ public class PlayerHealth : MonoBehaviour
                 hearts[i].enabled = false; //making the heart invisible 
             }
         }
+
+        // Kill the player if they fall off the map
+        if (transform.position.y < -15)
+        {
+            gameOverScript.PauseGame();
+        }
     }
 
     public void TakeDamage() //reducing health 
@@ -55,7 +75,7 @@ public class PlayerHealth : MonoBehaviour
         health --; //minus one health when take damage 
         if(health <= 0) //when health is zero 
         {
-            gameOverScene.GetComponent<GameOver>().PauseGame(); //call the game over scene 
+            gameOverScript.PauseGame();
         }
     }
 }
