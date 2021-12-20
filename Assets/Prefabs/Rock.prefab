@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 288476030609923506}
   - component: {fileID: 288476030609923507}
   - component: {fileID: 288476030609923505}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rock
   m_TagString: Terrain
   m_Icon: {fileID: 0}
