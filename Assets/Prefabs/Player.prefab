@@ -109,7 +109,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &2255603635891144725
 BoxCollider2D:
@@ -211,6 +211,7 @@ MonoBehaviour:
   fullHeart: {fileID: 21300000, guid: cac1584c58c80db4a9e9813751d7fd0c, type: 3}
   emptyHeart: {fileID: 21300000, guid: f1b00822cdea4e443a3e2489ddaae788, type: 3}
   gameOverScene: {fileID: 0}
+  bufferTime: 1
 --- !u!82 &472614523
 AudioSource:
   m_ObjectHideFlags: 0
