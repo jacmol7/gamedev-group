@@ -5,6 +5,7 @@ using UnityEngine;
 public class enemy1 : MonoBehaviour
 {
     public float speed; //Speed of the enemy
+    public float agroDistance; // The distance at which to start reacting to the player
     
     private Transform target; //a variable for enemy to follow the target(player)-
     private Rigidbody2D rb;
@@ -22,6 +23,12 @@ public class enemy1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Do nothing as we are far away from the player
+        if (Vector2.Distance(transform.position, target.position) > agroDistance)
+        {
+            return;
+        }
+
         // Rotate to face the player
         if (target.position.x < transform.position.x)
         {
