@@ -153,7 +153,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 5
 --- !u!114 &3748280130560237962
 MonoBehaviour:
@@ -167,12 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181df4906842fc54292ec717cef01674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  position:
-  - {x: -5, y: 0, z: 0}
-  - {x: 5, y: 0, z: 0}
-  - {x: -5, y: 0, z: 0}
-  - {x: 5, y: 0, z: 0}
 --- !u!61 &3748280130560237963
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -228,7 +222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  distance: 2
   groundDetect: {fileID: 3748280129776462930}
   layerMask:
     serializedVersion: 2
@@ -246,4 +239,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  enemy: {fileID: 3748280130560237967}
