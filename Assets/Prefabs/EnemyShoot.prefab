@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5341272775240741454}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.66, y: 0.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -150,8 +150,10 @@ MonoBehaviour:
   speed: 2
   distanceToPlayer: 6
   retreatDistance: 5
+  agroDistance: 15
   startShootingTime: 2
   shooting: {fileID: 581107448919547935, guid: bf02a3a2cfbaacf4a98449e31733d494, type: 3}
+  shootSound: {fileID: 0}
 --- !u!114 &5341272775240741444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,4 +167,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  enemy: {fileID: 5341272775240741454}

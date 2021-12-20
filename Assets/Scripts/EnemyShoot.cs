@@ -8,7 +8,8 @@ public class EnemyShoot : MonoBehaviour
      
     public float speed; //speed of enemy movement 
     public float distanceToPlayer;//stopping distance from player 
-    public float retreatDistance; //the distance that enemy back away from player 
+    public float retreatDistance; //the distance that enemy back away from player
+    public float agroDistance; // when the player is atleast this close the enemy will start to react
 
     private float timeBetweenShoot = 3; //the shooting time between missle launches 
     public float startShootingTime; //prevent to shoot instantly when it comes up 
@@ -26,13 +27,18 @@ public class EnemyShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(transform.position, player.position) > distanceToPlayer)//check how far the enemy is from the player
+        float currentDistance = Vector2.Distance(transform.position, player.position);
+        
+        // We are a long way off screen, don't react to the player yet
+        if (currentDistance > agroDistance)
+        {
+            timeBetweenShoot -= Time.deltaTime;
+            return;
+        }
+
+        if (currentDistance > distanceToPlayer)
         {//enemy moves closer to target when it's too far away 
             transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);  //moving toward the player 
-        } 
-        else if (Vector2.Distance(transform.position, player.position) < distanceToPlayer && Vector2.Distance(transform.position, player.position) > retreatDistance)//check if enemy is too close to the player, when the player distance to enemy is smaller than distance to the player and greater than the retreat distance  
-        {
-            transform.position = this.transform.position;//enemy stop moving to the player 
         }
 
         if(timeBetweenShoot <= 0)
