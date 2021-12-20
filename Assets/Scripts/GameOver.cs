@@ -41,13 +41,15 @@ public class GameOver : MonoBehaviour
 
     public void Restart() //button function to restart the game 
     {
+        GameIsOver = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); //reload the game 
         Time.timeScale = 1f; //setting the game back to normal time 
     }
 
     public void MainMenu() //button function to go to main menu 
     {
-       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); //load the menu scene 
+        SceneManager.LoadScene("Menu"); //load the menu scene 
+        GameIsOver = false;
+        Time.timeScale = 1f;
     }
-
 }
