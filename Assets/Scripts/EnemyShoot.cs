@@ -18,10 +18,13 @@ public class EnemyShoot : MonoBehaviour
 
     public AudioClip shootSound; //sound effect of shooting 
 
+    private Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform; //find the Player object 
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -38,7 +41,14 @@ public class EnemyShoot : MonoBehaviour
 
         if (currentDistance > distanceToPlayer)
         {//enemy moves closer to target when it's too far away 
-            transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);  //moving toward the player 
+            if (player.position.x > transform.position.x)
+            {
+                rb.velocity = new Vector2(speed, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(-speed, rb.velocity.y);
+            }
         }
 
         if(timeBetweenShoot <= 0)
