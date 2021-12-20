@@ -28,6 +28,7 @@ public class EnemyShoot : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform; //find the Player object 
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        Physics2D.IgnoreLayerCollision(7, 7, true);
     }
 
     // Update is called once per frame

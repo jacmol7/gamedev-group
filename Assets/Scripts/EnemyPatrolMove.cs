@@ -12,6 +12,11 @@ public class EnemyPatrolMove : MonoBehaviour
 
     public LayerMask layerMask; //a layer mask for the wall detection 
 
+    void Start()
+    {
+        Physics2D.IgnoreLayerCollision(7, 7, true);
+    }
+
     void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime); //set the direction to the right, making the speed as a real time 

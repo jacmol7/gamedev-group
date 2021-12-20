@@ -14,6 +14,7 @@ public class enemy1 : MonoBehaviour
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();//find the player object 
         rb = GetComponent<Rigidbody2D>();
+        Physics2D.IgnoreLayerCollision(7, 7, true);
     }
 
     // Update is called once per frame
