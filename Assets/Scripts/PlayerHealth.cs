@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour
     public int health; //health of the player 
     public int numOfHearts; //number of heart images 
 
+    public AudioClip painSound;
+    public AudioClip fallSound;
+
     public Image[] hearts; //an array for the hearts 
     public Sprite fullHeart; //image of the full hearts 
     public Sprite emptyHeart; //image of the empty hearts 
@@ -69,6 +72,7 @@ public class PlayerHealth : MonoBehaviour
         // Kill the player if they fall off the map
         if (transform.position.y < -15)
         {
+            AudioSource.PlayClipAtPoint(fallSound, transform.position);
             gameOverScript.PauseGame();
         }
     }
@@ -79,6 +83,7 @@ public class PlayerHealth : MonoBehaviour
         {
             health --; //minus one health when take damage 
             StartCoroutine(BufferCoolDown()); //start the coroutine for buffer cool down 
+            AudioSource.PlayClipAtPoint(painSound, transform.position);
         }
         
         if(health <= 0) //when health is zero 

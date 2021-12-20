@@ -59,13 +59,11 @@ public class EnemyShoot : MonoBehaviour
         }
 
         if(timeBetweenShoot <= 0)
-        {
-            //AudioSource.PlayClipAtPoint(shootSound, transform.position); //play the audio clip when the enemy shoot 
-
-            
+        {            
             RaycastHit2D hit = Physics2D.Linecast(transform.position, player.position, LayerMask.GetMask("Ground"));//check if the enemy is shooing at ground layer mask 
             if (!hit.collider) 
             {
+                AudioSource.PlayClipAtPoint(shootSound, transform.position);
                 Instantiate(shooting, transform.position, Quaternion.identity);//instantiate the bullets
                 timeBetweenShoot = startShootingTime; //prevent spamming shoots
             }

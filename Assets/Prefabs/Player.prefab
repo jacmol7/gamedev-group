@@ -204,6 +204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   numOfHearts: 3
+  painSound: {fileID: 8300000, guid: ccad0e5206553dc4bb1f1af11bdbed95, type: 3}
+  fallSound: {fileID: 8300000, guid: 406e6107fd28c9340b0defd87f56c588, type: 3}
   hearts:
   - {fileID: 0}
   - {fileID: 0}
