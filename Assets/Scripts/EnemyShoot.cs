@@ -21,6 +21,7 @@ public class EnemyShoot : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sprite; 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,15 +34,14 @@ public class EnemyShoot : MonoBehaviour
     void Update()
     {
         float currentDistance = Vector2.Distance(transform.position, player.position);
-
-        rb.velocity = new Vector2(0f, rb.velocity.y);
-        
         // We are a long way off screen, don't react to the player yet
         if (currentDistance > agroDistance)
         {
             timeBetweenShoot -= Time.deltaTime;
             return;
         }
+
+        rb.velocity = new Vector2(0f, rb.velocity.y);
 
         // Rotate to face the player
         sprite.flipX = player.position.x < transform.position.x;
@@ -60,9 +60,16 @@ public class EnemyShoot : MonoBehaviour
 
         if(timeBetweenShoot <= 0)
         {
-            AudioSource.PlayClipAtPoint(shootSound, transform.position); //play the audio clip when the enemy shoot 
-            Instantiate(shooting, transform.position, Quaternion.identity);//instantiate the bullets
-            timeBetweenShoot = startShootingTime; //prevent spamming shoots
+            //AudioSource.PlayClipAtPoint(shootSound, transform.position); //play the audio clip when the enemy shoot 
+
+            
+            RaycastHit2D hit = Physics2D.Linecast(transform.position, player.position, LayerMask.GetMask("Ground"));//check if the enemy is shooing at ground layer mask 
+            if (!hit.collider) 
+            {
+                Instantiate(shooting, transform.position, Quaternion.identity);//instantiate the bullets
+                timeBetweenShoot = startShootingTime; //prevent spamming shoots
+            }
+
         } 
         else 
         {
