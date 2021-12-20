@@ -16,7 +16,8 @@ public class Missile : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform; //find the Player game object 
         target = new Vector2(player.position.x, player.position.y);//the missile will spawn at the same position as player
-        Destroy(gameObject, removeTime); 
+        Destroy(gameObject, removeTime);
+        Physics2D.IgnoreLayerCollision(8, 8, true);
     }
 
     // Update is called once per frame
