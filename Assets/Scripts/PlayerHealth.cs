@@ -11,8 +11,9 @@ public class PlayerHealth : MonoBehaviour
     public Image[] hearts; //an array for the hearts 
     public Sprite fullHeart; //image of the full hearts 
     public Sprite emptyHeart; //image of the empty hearts 
-    public GameObject gameOverScene;
-    
+    public GameObject gameOverScene; //game over scene game object
+    public float bufferTime; //making player invulneraable in 1.0f 
+    private bool invulnerable; //a bool for invulnerable 
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
         {
             if(i < health)//check if i is smaller than health
             {
-                hearts[i].sprite = fullHeart; //for heart i to display a full heart 
+                hearts[i].sprite = fullHeart; //for heart i to display a full heart d
             }
             else 
             {
@@ -52,10 +53,22 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage() //reducing health 
     {
-        health --; //minus one health when take damage 
+        if(!invulnerable) //when the player isn't invulnerable 
+        {
+            health --; //minus one health when take damage 
+            StartCoroutine(BufferCoolDown()); //start the coroutine for buffer cool down 
+        }
+        
         if(health <= 0) //when health is zero 
         {
             gameOverScene.GetComponent<GameOver>().PauseGame(); //call the game over scene 
         }
+    }
+
+    IEnumerator BufferCoolDown()  //function for coroutine 
+    {
+        invulnerable = true; //making the player invulnerable 
+        yield return new WaitForSeconds(bufferTime);//wait for 1f until player can get hits again.
+        invulnerable = false; //making the player vulnerable 
     }
 }

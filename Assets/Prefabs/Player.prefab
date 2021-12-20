@@ -206,3 +206,4 @@ MonoBehaviour:
   fullHeart: {fileID: 21300000, guid: cac1584c58c80db4a9e9813751d7fd0c, type: 3}
   emptyHeart: {fileID: 21300000, guid: f1b00822cdea4e443a3e2489ddaae788, type: 3}
   gameOverScene: {fileID: 0}
+  bufferTime: 1
