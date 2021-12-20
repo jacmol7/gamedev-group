@@ -20,6 +20,7 @@ public class EnemyShoot : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer sprite; 
+    private GroundDetector groundDetector;
 
 
     // Start is called before the first frame update
@@ -29,6 +30,7 @@ public class EnemyShoot : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         Physics2D.IgnoreLayerCollision(7, 7, true);
+        groundDetector = transform.Find("GroundDetector").GetComponent<GroundDetector>();
     }
 
     // Update is called once per frame
@@ -45,18 +47,32 @@ public class EnemyShoot : MonoBehaviour
         }
 
         // Rotate to face the player
-        sprite.flipX = player.position.x < transform.position.x;
+        if (player.position.x < transform.position.x)
+        {
+            transform.eulerAngles = new Vector3(0, -180, 0);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
 
-        if (currentDistance > distanceToPlayer)
-        {//enemy moves closer to target when it's too far away 
-            if (player.position.x > transform.position.x)
-            {
-                rb.velocity = new Vector2(speed, rb.velocity.y);
+        if (!groundDetector.isStuck())
+        {
+            if (currentDistance > distanceToPlayer)
+            {//enemy moves closer to target when it's too far away 
+                if (player.position.x > transform.position.x)
+                {
+                    rb.velocity = new Vector2(speed, rb.velocity.y);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(-speed, rb.velocity.y);
+                }
             }
-            else
-            {
-                rb.velocity = new Vector2(-speed, rb.velocity.y);
-            }
+        }
+        else 
+        {
+            Debug.Log("Tank is stuck");
         }
 
         if(timeBetweenShoot <= 0)

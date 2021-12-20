@@ -4,22 +4,42 @@ using UnityEngine;
 
 public class enemy1 : MonoBehaviour
 {
-    public Transform target; //a variable for enemy to follow the target(player)
     public float speed; //Speed of the enemy
-
-    private Rigidbody2D rb;
     
-     // Start is called before the first frame update
+    private Transform target; //a variable for enemy to follow the target(player)-
+    private Rigidbody2D rb;
+    private GroundDetector groundDetector;
+    
+    // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();//find the player object 
         rb = GetComponent<Rigidbody2D>();
+        groundDetector = transform.Find("GroundDetector").GetComponent<GroundDetector>();
         Physics2D.IgnoreLayerCollision(7, 7, true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Rotate to face the player
+        if (target.position.x < transform.position.x)
+        {
+            transform.eulerAngles = new Vector3(0, -180, 0);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+
+        // We are up against a wall or about to fall so just do nothing
+        if (groundDetector.isStuck())
+        {
+            Debug.Log("Red enemy is stuck");
+            rb.velocity = new Vector2(0f, rb.velocity.y);
+            return;
+        }
+
         if(Vector2.Distance(transform.position, target.position)> 0.1 )//the distacne from the enemy to the player 
         {
             //enemy move towrd to the player 
